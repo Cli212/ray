@@ -34,7 +34,8 @@ def setup_process_group(url, world_rank, world_size, timeout, backend="gloo"):
             "Setting NCCL_BLOCKING_WAIT for detecting node failure. "
             "To override this behavior, you can set NCCL_BLOCKING_WAIT=0.")
         os.environ["NCCL_BLOCKING_WAIT"] = "1"
-
+    logger.info("Change to the package works")
+    torch.cuda.set_device(world_rank)
     dist.init_process_group(
         backend=backend,
         init_method=url,
